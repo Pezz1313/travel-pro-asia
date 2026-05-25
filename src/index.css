@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-ivory text-navy font-sans;
+    background-image:
+      radial-gradient(at 6% 8%, rgba(242, 198, 209, 0.18) 0%, transparent 38%),
+      radial-gradient(at 94% 16%, rgba(184, 148, 86, 0.10) 0%, transparent 45%),
+      radial-gradient(at 50% 96%, rgba(15, 27, 61, 0.04) 0%, transparent 55%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    background: rgba(242, 198, 209, 0.5);
+    color: #0F1B3D;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-navy/10 bg-white/70 px-4 py-1.5 text-xs font-medium tracking-wide text-navy backdrop-blur;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold tracking-wide text-ivory shadow-card transition-all hover:bg-navy-dark hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white/60 px-6 py-3 text-sm font-medium text-navy backdrop-blur transition-all hover:bg-white hover:border-navy/30;
+  }
+
+  .btn-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-white/80 px-3.5 py-1.5 text-xs font-medium text-navy/80 transition-all hover:border-navy/30 hover:bg-white hover:text-navy;
+  }
+
+  .h-serif {
+    @apply font-serif font-medium tracking-tight;
+  }
+
+  .card {
+    @apply rounded-3xl border border-navy/10 bg-white/85 backdrop-blur-sm transition-all;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-card hover:border-navy/20;
+  }
+
+  .label-muted {
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-muted;
+  }
+
+  .section {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+
+  .divider-asia {
+    background: linear-gradient(90deg, transparent, rgba(15, 27, 61, 0.18), transparent);
+    height: 1px;
+  }
+}
+
+/* Hanji paper / noise texture overlay */
+.bg-paper {
+  background-color: #FAF7F2;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.11 0 0 0 0 0.24 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Bojagi-inspired faint patchwork grid */
+.bg-bojagi {
+  background-image:
+    linear-gradient(rgba(242, 198, 209, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 148, 86, 0.06) 1px, transparent 1px);
+  background-size: 96px 96px;
+}
+
+/* Washi-paper inspired soft warm wash */
+.bg-washi {
+  background-color: #F4EFE6;
+  background-image:
+    radial-gradient(at 20% 30%, rgba(242, 198, 209, 0.18) 0%, transparent 40%),
+    radial-gradient(at 80% 70%, rgba(217, 89, 76, 0.06) 0%, transparent 45%);
+}
+
+/* Hairline asian-inspired ornament line */
+.line-ornament {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 148, 86, 0.4), transparent);
+}
+.line-ornament::before,
+.line-ornament::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #B89456;
+  transform: translateY(-50%);
+}
+.line-ornament::before { left: calc(50% - 28px); }
+.line-ornament::after { left: calc(50% + 22px); }
+
+/* Sakura floating animation positioning helper */
+.sakura-petal {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Soft fade-in for itinerary reveal */
+.reveal {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+.reveal-delay-1 { animation-delay: 80ms; }
+.reveal-delay-2 { animation-delay: 160ms; }
+.reveal-delay-3 { animation-delay: 240ms; }
+.reveal-delay-4 { animation-delay: 320ms; }
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #FAF7F2; }
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 27, 61, 0.18);
+  border-radius: 10px;
+  border: 2px solid #FAF7F2;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(15, 27, 61, 0.35); }
