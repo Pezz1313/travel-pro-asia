@@ -140,7 +140,7 @@ export default function TripBuilder({ onGenerate, loading }) {
 
             <div className="mt-8 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-xs text-muted">
-                Démo : aucun paiement, aucun compte, aucune API IA réelle. L’itinéraire affiché est un exemple représentatif.
+                Aperçu gratuit : découvrez une première proposition de voyage. La version complète, détaillée jour par jour, sera préparée en PDF après validation de votre demande et du paiement.
               </p>
               <button
                 type="submit"

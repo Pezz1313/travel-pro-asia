@@ -84,12 +84,9 @@ export default function Footer() {
           <p className="text-xs text-muted">
             © {new Date().getFullYear()} Travel Pro Asia. Tous droits réservés.
           </p>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
-              <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse-soft" />
-              Bêta
-            </span>
-            <p className="text-xs text-muted">Travel Pro Asia est actuellement en version bêta.</p>
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <span className="h-1 w-1 rounded-full bg-gold" />
+            <span>Itinéraires sur-mesure pour la Corée et le Japon</span>
           </div>
         </div>
       </div>

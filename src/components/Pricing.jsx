@@ -3,7 +3,7 @@ const FEATURES = [
   'Plan jour par jour',
   'Conseils transport, food, budget et erreurs à éviter',
   'Version complète envoyée après validation',
-  'Paiement sécurisé bientôt disponible',
+  'Paiement sécurisé via Payhip',
 ];
 
 export default function Pricing() {
@@ -34,7 +34,7 @@ export default function Pricing() {
                 <span className="hidden h-3 w-px bg-navy/15 sm:block" />
                 <span className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                  Prix bêta limité
+                  Offre à durée limitée
                 </span>
               </div>
 
@@ -84,7 +84,7 @@ export default function Pricing() {
                 </a>
 
                 <p className="mt-4 text-center text-xs text-muted">
-                  Version test : aucun paiement n’est encore demandé.
+                  Paiement sécurisé · Itinéraire envoyé en PDF sous 24h
                 </p>
               </div>
             </article>

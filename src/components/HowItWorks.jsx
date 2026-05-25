@@ -44,7 +44,7 @@ export default function HowItWorks() {
             Trois étapes, douze secondes.
           </h2>
           <p className="mt-4 text-base text-muted">
-            Aucun compte, aucun téléchargement. Tout se passe ici, en quelques clics.
+            Sans inscription, directement depuis votre navigateur. Tout se passe ici, en quelques clics.
           </p>
         </div>
 

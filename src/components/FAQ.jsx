@@ -3,7 +3,7 @@ import { useState } from 'react';
 const FAQS = [
   {
     q: 'Comment fonctionne la génération d’itinéraire ?',
-    a: "Vous décrivez votre voyage idéal — pays, durée, style, budget — et notre IA construit un plan complet jour par jour, avec transport, food, cafés, conseils locaux et erreurs à éviter. Sur cette V1, l’itinéraire affiché est une démo représentative.",
+    a: "Vous décrivez votre voyage idéal — pays, durée, style, budget — et notre IA construit un plan complet jour par jour, avec transport, food, cafés, conseils locaux et erreurs à éviter. L’aperçu gratuit vous donne une première proposition de voyage ; la version complète, détaillée et personnalisée, vous est envoyée en PDF après validation de votre demande et du paiement.",
   },
   {
     q: 'Quels pays sont couverts ?',
@@ -11,7 +11,7 @@ const FAQS = [
   },
   {
     q: 'Faut-il créer un compte ?',
-    a: "Non. Aucun compte, aucun téléchargement, aucune installation. Vous décrivez votre voyage, vous obtenez votre itinéraire — c’est tout.",
+    a: "Non, aucune inscription n’est nécessaire pour obtenir votre aperçu. Vous décrivez votre voyage, notre IA prépare votre première proposition, et la version complète vous est envoyée en PDF après paiement — simple et rapide.",
   },
   {
     q: 'Les prix et horaires sont-ils garantis ?',

@@ -36,7 +36,7 @@ export default function Hero() {
           <div className="mt-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-3.5 py-1.5 text-xs font-semibold text-coral">
               <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse-soft" />
-              Offre bêta : 4,99 €
+              Offre de lancement : 4,99 €
               <span className="ml-1 font-medium text-coral/70 line-through decoration-coral/60">au lieu de 15,99 €</span>
             </span>
           </div>

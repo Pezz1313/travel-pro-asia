@@ -197,7 +197,7 @@ function CTACard({ onClick }) {
               <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse-soft" />
               Étape suivante
             </span>
-            <span className="pill !bg-white/80">Aperçu démo terminé</span>
+            <span className="pill !bg-white/80">Première proposition prête</span>
           </div>
 
           <h3 className="h-serif mt-4 text-3xl sm:text-4xl">
@@ -248,7 +248,7 @@ function CTACard({ onClick }) {
           </div>
 
           <p className="mt-2 text-xs font-semibold text-coral">
-            Prix bêta limité pour les premiers utilisateurs
+            Tarif de lancement réservé aux premiers utilisateurs
           </p>
           <p className="mt-1 text-xs text-muted">
             Profite du tarif de lancement avant l’activation du prix final.
@@ -266,7 +266,7 @@ function CTACard({ onClick }) {
           </button>
 
           <p className="mt-3 text-center text-[11px] text-muted">
-            Version test : aucun paiement n’est encore demandé.
+            Paiement sécurisé · Itinéraire envoyé sous 24h
           </p>
         </div>
       </div>
@@ -459,7 +459,7 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
 
         <div className="mt-8 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted">
-            Version test : le paiement sécurisé sera ajouté à l’étape suivante.
+            Vos informations sont transmises de manière sécurisée. Paiement à l’étape suivante.
           </p>
           <button
             type="submit"

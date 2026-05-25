@@ -64,7 +64,7 @@ function Result({ itinerary }) {
               <span aria-hidden>{itinerary.flagEmoji}</span>
               Itinéraire personnalisé
             </span>
-            <span className="pill !border-coral/30 !bg-coral/10 !text-coral">Aperçu démo</span>
+            <span className="pill !border-coral/30 !bg-coral/10 !text-coral">Aperçu gratuit</span>
           </div>
           <h3 className="h-serif mt-4 text-3xl sm:text-4xl">{itinerary.title}</h3>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-navy/80">
@@ -181,8 +181,9 @@ function Result({ itinerary }) {
       <Ornament className="pt-6 opacity-70" />
 
       <p className="mx-auto max-w-2xl text-center text-xs text-muted">
-        Cet itinéraire est un exemple représentatif généré pour la démo Travel Pro Asia.
-        Les horaires, prix et disponibilités peuvent changer — vérifiez avant toute réservation.
+        Cet aperçu vous donne un premier fil conducteur pour votre voyage. La version complète,
+        détaillée et personnalisée, vous est envoyée en PDF après validation et paiement.
+        Les horaires, prix et disponibilités peuvent évoluer — vérifiez avant toute réservation.
       </p>
     </div>
   );
