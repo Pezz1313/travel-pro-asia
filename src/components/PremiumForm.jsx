@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mgoqlble';
-const PAYHIP_CHECKOUT_URL = 'https://payhip.com/order?link=zKURA';
+const PAYHIP_CHECKOUT_URL = 'https://payhip.com/buy?link=kLm3W';
 
 const DESTINATIONS = [
   { id: 'korea', emoji: '🇰🇷', label: 'Corée du Sud' },
