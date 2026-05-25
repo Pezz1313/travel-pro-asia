@@ -32,7 +32,16 @@ export default function Hero() {
             la Corée du Sud et le Japon.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          {/* Launch offer pastille — discrete but visible right above the CTAs */}
+          <div className="mt-6">
+            <span className="inline-flex items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-3.5 py-1.5 text-xs font-semibold text-coral">
+              <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse-soft" />
+              Offre bêta : 4,99 €
+              <span className="ml-1 font-medium text-coral/70 line-through decoration-coral/60">au lieu de 15,99 €</span>
+            </span>
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <a href="#builder" className="btn-primary">
               Créer mon itinéraire
               <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">

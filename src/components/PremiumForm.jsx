@@ -227,18 +227,36 @@ function CTACard({ onClick }) {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-navy/10 bg-ivory/70 p-6">
-          <div className="label-muted">Tarif unique</div>
-          <div className="mt-2 flex items-baseline gap-2">
+        <div className="rounded-2xl border border-coral/25 bg-gradient-to-br from-coral/5 via-white/40 to-sakura/15 p-6">
+          {/* Launch offer badge */}
+          <span className="inline-flex items-center gap-2 rounded-full border border-coral/30 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-coral">
+            <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse-soft" />
+            Offre de lancement
+          </span>
+
+          {/* Strikethrough former price */}
+          <div className="mt-3 flex items-center gap-2 text-sm text-muted">
+            <span>Prix normal</span>
+            <span className="line-through decoration-coral/60 decoration-2 underline-offset-2">15,99 €</span>
+          </div>
+
+          {/* Big launch price */}
+          <div className="mt-1 flex items-baseline gap-2">
             <span className="h-serif text-5xl font-semibold text-navy">4,99</span>
             <span className="text-xl text-navy/70">€</span>
           </div>
-          <p className="mt-1 text-xs text-muted">Paiement unique · Pas d’abonnement</p>
+
+          <p className="mt-2 text-xs font-semibold text-coral">
+            Prix bêta limité pour les premiers utilisateurs
+          </p>
+          <p className="mt-1 text-xs text-muted">
+            Profite du tarif de lancement avant l’activation du prix final.
+          </p>
 
           <button
             type="button"
             onClick={onClick}
-            className="btn-primary mt-6 w-full !py-4 !text-base"
+            className="btn-primary mt-5 w-full !py-4 !text-base"
           >
             Recevoir mon itinéraire complet — 4,99 €
             <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
@@ -265,6 +283,16 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
       <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br from-sakura/30 via-transparent to-gold/10 blur-3xl" aria-hidden="true" />
 
       <div className="relative">
+        {/* Launch offer reminder banner */}
+        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-coral/25 bg-gradient-to-r from-coral/10 via-sakura/10 to-transparent px-4 py-3 text-sm">
+          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-coral animate-pulse-soft" />
+          <span className="text-navy/85">
+            <strong className="font-semibold text-coral">Tu profites de l’offre de lancement :</strong>{' '}
+            4,99 € au lieu de{' '}
+            <span className="line-through decoration-coral/60">15,99 €</span>.
+          </span>
+        </div>
+
         <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="label-muted">Demande premium</div>
