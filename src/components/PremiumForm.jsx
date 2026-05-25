@@ -42,13 +42,30 @@ const LEVELS = [
   { id: 'luxury', label: 'Luxe', hint: 'Hôtels 4–5★, kaiseki, expériences privées' },
 ];
 
+const TRAVELERS = ['1', '2', '3', '4', '5 ou plus', 'Famille avec enfants'];
+
+const CITIES = [
+  { name: 'Séoul', country: '🇰🇷' },
+  { name: 'Busan', country: '🇰🇷' },
+  { name: 'Jeju', country: '🇰🇷' },
+  { name: 'Tokyo', country: '🇯🇵' },
+  { name: 'Kyoto', country: '🇯🇵' },
+  { name: 'Osaka', country: '🇯🇵' },
+  { name: 'Nara', country: '🇯🇵' },
+  { name: 'Hakone', country: '🇯🇵' },
+  { name: 'Hokkaido', country: '🇯🇵' },
+  { name: 'Okinawa', country: '🇯🇵' },
+];
+
 const EMPTY_FORM = {
-  firstName: '',
+  fullName: '',
   email: '',
   destination: '',
   dates: '',
   duration: '',
+  travelers: '',
   budget: '',
+  cities: [],
   interests: [],
   level: '',
   notes: '',
@@ -90,13 +107,17 @@ export default function PremiumForm({ itinerary, originalPrompt = '' }) {
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: typeof e === 'string' ? e : e.target.value }));
 
-  const toggleInterest = (interest) =>
+  // Generic toggle for any array-typed field (interests, cities, …)
+  const toggleMulti = (key) => (value) =>
     setForm((f) => ({
       ...f,
-      interests: f.interests.includes(interest)
-        ? f.interests.filter((i) => i !== interest)
-        : [...f.interests, interest],
+      [key]: f[key].includes(value)
+        ? f[key].filter((v) => v !== value)
+        : [...f[key], value],
     }));
+
+  const toggleInterest = toggleMulti('interests');
+  const toggleCity = toggleMulti('cities');
 
   const handleExpand = () => {
     setExpanded(true);
@@ -168,6 +189,7 @@ export default function PremiumForm({ itinerary, originalPrompt = '' }) {
               form={form}
               update={update}
               toggleInterest={toggleInterest}
+              toggleCity={toggleCity}
               onSubmit={handleSubmit}
               submitting={submitting}
               error={error}
@@ -275,7 +297,7 @@ function CTACard({ onClick }) {
 }
 
 // ---------- FORM ----------
-function FormCard({ form, update, toggleInterest, onSubmit, submitting, error }) {
+function FormCard({ form, update, toggleInterest, toggleCity, onSubmit, submitting, error }) {
   return (
     <form
       onSubmit={onSubmit}
@@ -308,15 +330,15 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          <Field label="Prénom" required>
+          <Field label="Nom complet" required>
             <input
               type="text"
               required
-              value={form.firstName}
-              onChange={update('firstName')}
-              placeholder="Marie"
+              value={form.fullName}
+              onChange={update('fullName')}
+              placeholder="Marie Dupont"
               className={inputClass}
-              autoComplete="given-name"
+              autoComplete="name"
             />
           </Field>
 
@@ -351,7 +373,7 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
         </div>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          <Field label="Dates approximatives" hint="Mois ou saison">
+          <Field label="Dates du voyage" hint="Mois ou saison">
             <input
               type="text"
               value={form.dates}
@@ -372,12 +394,39 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
           </Field>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <Field label="Nombre de voyageurs">
+            <div className="flex flex-wrap gap-2">
+              {TRAVELERS.map((t) => (
+                <Chip key={t} active={form.travelers === t} onClick={() => update('travelers')(t)}>
+                  {t}
+                </Chip>
+              ))}
+            </div>
+          </Field>
+
           <Field label="Budget approximatif" hint="Hors vol international">
             <div className="flex flex-wrap gap-2">
               {BUDGETS.map((b) => (
                 <Chip key={b} active={form.budget === b} onClick={() => update('budget')(b)}>
                   {b}
+                </Chip>
+              ))}
+            </div>
+          </Field>
+        </div>
+
+        <div className="mt-6">
+          <Field label="Villes souhaitées" hint="Sélectionnez une ou plusieurs villes">
+            <div className="flex flex-wrap gap-2">
+              {CITIES.map((c) => (
+                <Chip
+                  key={c.name}
+                  active={form.cities.includes(c.name)}
+                  onClick={() => toggleCity(c.name)}
+                >
+                  <span aria-hidden>{c.country}</span>
+                  {c.name}
                 </Chip>
               ))}
             </div>
@@ -401,7 +450,7 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
         </div>
 
         <div className="mt-6">
-          <Field label="Niveau de voyage">
+          <Field label="Style de voyage">
             <div className="grid gap-2 sm:grid-cols-3">
               {LEVELS.map((l) => {
                 const active = form.level === l.id;
@@ -428,7 +477,7 @@ function FormCard({ form, update, toggleInterest, onSubmit, submitting, error })
         </div>
 
         <div className="mt-6">
-          <Field label="Ajoutez des détails importants" hint="Allergies, accessibilité, occasions spéciales…">
+          <Field label="Demandes spéciales" hint="Allergies, accessibilité, occasions spéciales…">
             <textarea
               rows={4}
               value={form.notes}
@@ -501,7 +550,7 @@ function ConfirmationCard({ form, onReset }) {
 
         <h3 className="h-serif mt-6 text-3xl sm:text-4xl">Demande reçue.</h3>
         <p className="mt-3 text-base text-navy/80">
-          {form.firstName ? `${form.firstName}, votre demande est bien enregistrée. ` : 'Votre demande est bien enregistrée. '}
+          {form.fullName ? `${form.fullName.split(' ')[0]}, votre demande est bien enregistrée. ` : 'Votre demande est bien enregistrée. '}
           Pour recevoir votre itinéraire personnalisé complet, dernière étape :
           finalisez le paiement sécurisé.
         </p>
@@ -552,16 +601,20 @@ function ConfirmationCard({ form, onReset }) {
           </p>
         </div>
 
-        {form.interests.length > 0 || form.destination || form.duration || form.dates || form.budget || form.level ? (
+        {form.destination || form.duration || form.dates || form.travelers || form.budget || form.cities.length > 0 || form.interests.length > 0 || form.level ? (
           <div className="mx-auto mt-8 grid max-w-md gap-2 text-left text-xs text-muted">
             {form.destination && <SummaryLine label="Destination" value={destinationLabel(form.destination)} />}
             {form.duration && <SummaryLine label="Durée" value={form.duration} />}
             {form.dates && <SummaryLine label="Dates" value={form.dates} />}
+            {form.travelers && <SummaryLine label="Voyageurs" value={form.travelers} />}
             {form.budget && <SummaryLine label="Budget" value={form.budget} />}
-            {form.level && <SummaryLine label="Niveau" value={levelLabel(form.level)} />}
+            {form.cities.length > 0 && (
+              <SummaryLine label="Villes" value={form.cities.join(' · ')} />
+            )}
             {form.interests.length > 0 && (
               <SummaryLine label="Intérêts" value={form.interests.join(' · ')} />
             )}
+            {form.level && <SummaryLine label="Style" value={levelLabel(form.level)} />}
           </div>
         ) : null}
 
@@ -625,30 +678,36 @@ function levelLabel(id) {
   return LEVELS.find((l) => l.id === id)?.label || id || '';
 }
 
-// Build the Formspree payload. Keys are sent in clear French so the email
-// received in Formspree's inbox is readable as-is, without any extra mapping.
+// Build the Formspree payload. Keys are sent in clear French and ORDERED to
+// match the "Travel Pro Asia — Commandes clients" Google Sheet columns, so
+// the email body can be copy-pasted into the sheet in order.
 function buildPayload(form, itinerary, originalPrompt) {
   const destination = destinationLabel(form.destination);
-  const subjectName = form.firstName ? form.firstName : 'Anonyme';
+  const subjectName = form.fullName ? form.fullName : 'Anonyme';
   const subjectDest = destination || 'Corée / Japon';
 
   return {
     // Formspree special fields
-    _subject: `Travel Pro Asia — Nouvelle demande premium · ${subjectName} · ${subjectDest}`,
+    _subject: `Travel Pro Asia — Nouvelle commande · ${subjectName} · ${subjectDest}`,
     _replyto: form.email || '',
 
-    // User-entered fields
-    prenom: form.firstName,
-    email: form.email,
+    // Order matches the Google Sheet columns:
+    // Nom client · Email client · Destination · Durée · Dates du voyage ·
+    // Nombre de voyageurs · Budget · Villes souhaitées · Centres d'intérêt ·
+    // Style de voyage · Demandes spéciales
+    nom_client: form.fullName,
+    email_client: form.email,
     destination,
-    dates_approximatives: form.dates,
-    duree_voyage: form.duration,
-    budget_approximatif: form.budget,
-    centres_interet: form.interests.join(', '),
-    niveau_voyage: levelLabel(form.level),
-    details_importants: form.notes,
+    duree: form.duration,
+    dates_du_voyage: form.dates,
+    nombre_de_voyageurs: form.travelers,
+    budget: form.budget,
+    villes_souhaitees: form.cities.join(', '),
+    centres_d_interet: form.interests.join(', '),
+    style_de_voyage: levelLabel(form.level),
+    demandes_speciales: form.notes,
 
-    // Context from the demo step
+    // Bonus context appended after the sheet columns
     demande_originale: originalPrompt || '',
     itineraire_titre: itinerary?.title || '',
     itineraire_resume: itinerary?.summary || '',
