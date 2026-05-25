@@ -65,7 +65,22 @@ export default function Footer() {
           transports et conditions d’entrée avant toute réservation.
         </div>
 
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+        {/* Contact line — discrete, with mailto */}
+        <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted">
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-navy/60" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+            <path d="M3 7l9 6 9-6" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
+          </svg>
+          <span>Contact :</span>
+          <a
+            href="mailto:travelproasia.contact@gmail.com"
+            className="text-navy/85 transition-colors hover:text-navy hover:underline"
+          >
+            travelproasia.contact@gmail.com
+          </a>
+        </div>
+
+        <div className="mt-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="text-xs text-muted">
             © {new Date().getFullYear()} Travel Pro Asia. Tous droits réservés.
           </p>
