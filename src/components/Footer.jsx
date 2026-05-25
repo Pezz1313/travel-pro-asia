@@ -53,7 +53,6 @@ export default function Footer() {
               ['Mentions légales', '#'],
               ['Confidentialité', '#'],
               ['CGV', '#'],
-              ['Contact', '#'],
             ]}
           />
         </div>
@@ -62,20 +61,21 @@ export default function Footer() {
 
         <div className="rounded-2xl border border-navy/10 bg-white/70 p-5 text-xs leading-relaxed text-muted sm:p-6">
           <strong className="font-semibold text-navy">Avertissement :</strong>{' '}
-          Les itinéraires fournis sur Travel Pro Asia sont des suggestions personnalisées.
-          Les horaires, prix, transports, conditions d’entrée et règles sanitaires peuvent changer
-          à tout moment. Vérifiez systématiquement les informations auprès des sources officielles
-          (ambassades, opérateurs, sites des établissements) avant toute réservation ou départ.
-          Travel Pro Asia ne saurait être tenu responsable des changements survenus après publication.
+          Les informations de voyage peuvent changer. Vérifiez les horaires, prix,
+          transports et conditions d’entrée avant toute réservation.
         </div>
 
         <div className="mt-8 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="text-xs text-muted">
             © {new Date().getFullYear()} Travel Pro Asia. Tous droits réservés.
           </p>
-          <p className="text-xs text-muted">
-            Fait avec <span aria-hidden>🌸</span> pour les amoureux de l’Asie.
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse-soft" />
+              Bêta
+            </span>
+            <p className="text-xs text-muted">Travel Pro Asia est actuellement en version bêta.</p>
+          </div>
         </div>
       </div>
     </footer>

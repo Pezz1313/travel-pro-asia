@@ -10,6 +10,7 @@ import HowItWorks from './components/HowItWorks.jsx';
 import Pricing from './components/Pricing.jsx';
 import FAQ from './components/FAQ.jsx';
 import Footer from './components/Footer.jsx';
+import FallingDecorations from './components/FallingDecorations.jsx';
 import { generateDemoItinerary } from './data/itineraries.js';
 
 export default function App() {
@@ -49,27 +50,33 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen">
-      <Header />
-      <main>
-        <Hero />
+      {/* Decorative background layer — sits behind everything else (z-0) */}
+      <FallingDecorations />
 
-        <div className="py-8 sm:py-12">
-          <TripBuilder onGenerate={handleGenerate} loading={loading} />
-          <div ref={resultRef} className="mt-2">
-            <ItineraryResult itinerary={itinerary} loading={loading} />
-            {!loading && itinerary && (
-              <PremiumForm itinerary={itinerary} originalPrompt={lastPrompt} />
-            )}
+      {/* Main content — lifted above the decorations (z-10) */}
+      <div className="relative z-10">
+        <Header />
+        <main>
+          <Hero />
+
+          <div className="py-8 sm:py-12">
+            <TripBuilder onGenerate={handleGenerate} loading={loading} />
+            <div ref={resultRef} className="mt-2">
+              <ItineraryResult itinerary={itinerary} loading={loading} />
+              {!loading && itinerary && (
+                <PremiumForm itinerary={itinerary} originalPrompt={lastPrompt} />
+              )}
+            </div>
           </div>
-        </div>
 
-        <Destinations />
-        <TwoWays />
-        <HowItWorks />
-        <Pricing />
-        <FAQ />
-      </main>
-      <Footer />
+          <Destinations />
+          <TwoWays />
+          <HowItWorks />
+          <Pricing />
+          <FAQ />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

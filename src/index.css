@@ -134,6 +134,70 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ---------- Falling decorations (sakura + food) ---------- */
+.falling-decorations {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.falling-item {
+  position: absolute;
+  top: -8vh;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: fallDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 2px 6px rgba(15, 27, 61, 0.05));
+}
+
+.falling-sakura {
+  opacity: 0;
+}
+
+.falling-food {
+  opacity: 0;
+  line-height: 1;
+}
+
+@keyframes fallDrift {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg);   opacity: 0; }
+  8%   {                                                  opacity: 0.42; }
+  50%  { transform: translate3d(24px, 55vh, 0) rotate(180deg); }
+  92%  {                                                  opacity: 0.32; }
+  100% { transform: translate3d(-12px, 115vh, 0) rotate(360deg); opacity: 0; }
+}
+
+/* Food emojis drift a bit less and rotate less to stay readable as objects */
+.falling-food {
+  animation-name: fallDriftSoft;
+}
+
+@keyframes fallDriftSoft {
+  0%   { transform: translate3d(0, 0, 0) rotate(-6deg);  opacity: 0; }
+  10%  {                                                  opacity: 0.35; }
+  50%  { transform: translate3d(14px, 55vh, 0) rotate(6deg); }
+  90%  {                                                  opacity: 0.28; }
+  100% { transform: translate3d(-8px, 115vh, 0) rotate(-4deg); opacity: 0; }
+}
+
+/* On mobile, hide every other item to keep the density premium */
+@media (max-width: 640px) {
+  .falling-item:nth-child(2n) { display: none; }
+  .falling-food { font-size: 16px !important; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .falling-decorations { display: none; }
+}
+
 /* Custom scrollbar for premium feel */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: #FAF7F2; }
