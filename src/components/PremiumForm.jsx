@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mgoqlble';
+const PAYHIP_CHECKOUT_URL = 'https://payhip.com/order?link=zKURA';
 
 const DESTINATIONS = [
   { id: 'korea', emoji: '🇰🇷', label: 'Corée du Sud' },
@@ -500,39 +501,78 @@ function ConfirmationCard({ form, onReset }) {
 
         <h3 className="h-serif mt-6 text-3xl sm:text-4xl">Demande reçue.</h3>
         <p className="mt-3 text-base text-navy/80">
-          {form.firstName ? `${form.firstName}, votre demande nous est bien parvenue. ` : 'Votre demande nous est bien parvenue. '}
-          La version complète sera disponible avec le paiement 4,99 €.
+          {form.firstName ? `${form.firstName}, votre demande est bien enregistrée. ` : 'Votre demande est bien enregistrée. '}
+          Pour recevoir votre itinéraire personnalisé complet, dernière étape :
+          finalisez le paiement sécurisé.
         </p>
 
         {form.email && (
           <p className="mt-2 text-xs text-muted">
-            On vous tient au courant à <span className="font-medium text-navy">{form.email}</span> dès l’activation des paiements.
+            Votre itinéraire sera envoyé à <span className="font-medium text-navy">{form.email}</span> après confirmation du paiement.
           </p>
         )}
 
-        <div className="mx-auto mt-6 grid max-w-md gap-2 text-left text-xs text-muted">
-          {form.destination && <SummaryLine label="Destination" value={destinationLabel(form.destination)} />}
-          {form.duration && <SummaryLine label="Durée" value={form.duration} />}
-          {form.dates && <SummaryLine label="Dates" value={form.dates} />}
-          {form.budget && <SummaryLine label="Budget" value={form.budget} />}
-          {form.level && <SummaryLine label="Niveau" value={levelLabel(form.level)} />}
-          {form.interests.length > 0 && (
-            <SummaryLine label="Intérêts" value={form.interests.join(' · ')} />
-          )}
+        {/* ---- Payment block (Payhip) ---- */}
+        <div className="mx-auto mt-8 max-w-md rounded-2xl border border-coral/25 bg-gradient-to-br from-coral/5 via-white/40 to-sakura/15 p-6 text-left">
+          <div className="flex items-center justify-between gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-coral/30 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-coral">
+              <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse-soft" />
+              Dernière étape
+            </span>
+            <div className="flex items-baseline gap-1.5 text-sm text-muted">
+              <span className="line-through decoration-coral/60 decoration-2 underline-offset-2">15,99 €</span>
+              <span className="text-navy">→</span>
+              <span className="h-serif text-2xl font-semibold text-navy">4,99 €</span>
+            </div>
+          </div>
+
+          <p className="mt-4 text-sm text-navy/85">
+            Réglez votre <strong className="font-semibold">Pass voyageur</strong> au tarif de lancement.
+            Vous recevrez votre itinéraire personnalisé complet dès la confirmation du paiement.
+          </p>
+
+          <a
+            href={PAYHIP_CHECKOUT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-5 w-full !py-4 !text-base"
+          >
+            Payer mon itinéraire — 4,99 €
+            <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
+              <path d="M14 5h5v5M19 5L10 14M5 5h5M5 5v14h14v-5" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+
+          <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-muted">
+            <svg viewBox="0 0 24 24" className="h-3 w-3" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+            </svg>
+            Paiement sécurisé via Payhip · ouvre dans un nouvel onglet
+          </p>
         </div>
+
+        {form.interests.length > 0 || form.destination || form.duration || form.dates || form.budget || form.level ? (
+          <div className="mx-auto mt-8 grid max-w-md gap-2 text-left text-xs text-muted">
+            {form.destination && <SummaryLine label="Destination" value={destinationLabel(form.destination)} />}
+            {form.duration && <SummaryLine label="Durée" value={form.duration} />}
+            {form.dates && <SummaryLine label="Dates" value={form.dates} />}
+            {form.budget && <SummaryLine label="Budget" value={form.budget} />}
+            {form.level && <SummaryLine label="Niveau" value={levelLabel(form.level)} />}
+            {form.interests.length > 0 && (
+              <SummaryLine label="Intérêts" value={form.interests.join(' · ')} />
+            )}
+          </div>
+        ) : null}
 
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <button type="button" onClick={onReset} className="btn-ghost">
             Modifier ma demande
           </button>
-          <a href="#top" className="btn-primary">
+          <a href="#top" className="btn-ghost">
             Retour en haut
           </a>
         </div>
-
-        <p className="mt-6 text-xs text-muted">
-          Version test : le paiement sécurisé sera ajouté à l’étape suivante.
-        </p>
       </div>
     </div>
   );
