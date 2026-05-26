@@ -71,6 +71,16 @@ function Result({ itinerary }) {
             {itinerary.summary}
           </p>
 
+          {itinerary.personalNote && (
+            <div className="mt-4 flex items-start gap-3 rounded-2xl border border-coral/25 bg-coral/5 px-4 py-3 text-sm text-navy/85">
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-coral animate-pulse-soft" />
+              <span>
+                <strong className="font-semibold text-coral">D’après votre demande :</strong>{' '}
+                {itinerary.personalNote.replace(/^Aperçu adapté à votre demande\s*:\s*/, '')}
+              </span>
+            </div>
+          )}
+
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <Stat label="Villes" value={[...new Set(itinerary.days.flatMap((d) => d.city.split(' → ')))].length} />
             <Stat label="Jours" value={itinerary.days.length} />

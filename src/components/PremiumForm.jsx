@@ -68,6 +68,7 @@ const EMPTY_FORM = {
   cities: [],
   interests: [],
   level: '',
+  originalRequest: '',
   notes: '',
 };
 
@@ -80,17 +81,20 @@ export default function PremiumForm({ itinerary, originalPrompt = '' }) {
   const formRef = useRef(null);
   const confirmRef = useRef(null);
 
-  // Pre-fill destination + duration from the generated itinerary so the user
-  // doesn't have to re-enter what they already told us.
+  // Pre-fill destination + duration + original request from what the user
+  // already entered so they don't have to re-type it.
   useEffect(() => {
     if (!itinerary) return;
-    const destinationFromId = {
-      'korea-7': 'korea',
-      'japan-7': 'japan',
-      'combined-10': 'both',
-    }[itinerary.id] || '';
 
-    const dayCount = itinerary.days?.length || 0;
+    // Map the itinerary id prefix to a destination chip ("korea-7" → "korea")
+    const idPrefix = (itinerary.id || '').split('-')[0];
+    const destinationFromId =
+      idPrefix === 'korea' ? 'korea' :
+      idPrefix === 'japan' ? 'japan' :
+      idPrefix === 'combined' ? 'both' : '';
+
+    // Duration comes from the itinerary itself (single source of truth)
+    const dayCount = itinerary.durationDays || itinerary.days?.length || 0;
     const durationFromDays =
       dayCount < 7 ? DURATIONS[0]
       : dayCount <= 10 ? DURATIONS[1]
@@ -101,8 +105,9 @@ export default function PremiumForm({ itinerary, originalPrompt = '' }) {
       ...prev,
       destination: prev.destination || destinationFromId,
       duration: prev.duration || durationFromDays,
+      originalRequest: prev.originalRequest || originalPrompt || itinerary.originalRequest || '',
     }));
-  }, [itinerary]);
+  }, [itinerary, originalPrompt]);
 
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: typeof e === 'string' ? e : e.target.value }));
@@ -477,9 +482,24 @@ function FormCard({ form, update, toggleInterest, toggleCity, onSubmit, submitti
         </div>
 
         <div className="mt-6">
-          <Field label="Demandes spéciales" hint="Allergies, accessibilité, occasions spéciales…">
+          <Field
+            label="Demande originale / préférences importantes"
+            hint="Texte libre que vous avez écrit en haut de la page — complétez si besoin"
+          >
             <textarea
               rows={4}
+              value={form.originalRequest}
+              onChange={update('originalRequest')}
+              placeholder="Ex : Je vais en Corée 7 jours, je veux Séoul et Busan, mais le jour 2 je veux une journée tranquille avec cafés et balade, pas trop de visites."
+              className={`${inputClass} resize-none`}
+            />
+          </Field>
+        </div>
+
+        <div className="mt-6">
+          <Field label="Demandes spéciales" hint="Allergies, accessibilité, occasions spéciales…">
+            <textarea
+              rows={3}
               value={form.notes}
               onChange={update('notes')}
               placeholder="Ex : voyage de noces, allergique aux fruits de mer, préfère éviter les longs trajets en avion…"
@@ -694,7 +714,7 @@ function buildPayload(form, itinerary, originalPrompt) {
     // Order matches the Google Sheet columns:
     // Nom client · Email client · Destination · Durée · Dates du voyage ·
     // Nombre de voyageurs · Budget · Villes souhaitées · Centres d'intérêt ·
-    // Style de voyage · Demandes spéciales
+    // Style de voyage · Demande originale · Demandes spéciales
     nom_client: form.fullName,
     email_client: form.email,
     destination,
@@ -705,10 +725,11 @@ function buildPayload(form, itinerary, originalPrompt) {
     villes_souhaitees: form.cities.join(', '),
     centres_d_interet: form.interests.join(', '),
     style_de_voyage: levelLabel(form.level),
+    demande_originale: form.originalRequest || originalPrompt || '',
     demandes_speciales: form.notes,
 
     // Bonus context appended after the sheet columns
-    demande_originale: originalPrompt || '',
+    prompt_initial: originalPrompt || '',
     itineraire_titre: itinerary?.title || '',
     itineraire_resume: itinerary?.summary || '',
     itineraire_complet: itinerary ? formatItinerary(itinerary) : '',
