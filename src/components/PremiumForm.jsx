@@ -9,12 +9,10 @@ const DESTINATIONS = [
   { id: 'both', emoji: '🇰🇷🇯🇵', label: 'Corée + Japon' },
 ];
 
-const DURATIONS = [
-  'Moins de 7 jours',
-  '7 à 10 jours',
-  '10 à 14 jours',
-  'Plus de 14 jours',
-];
+// Exact durations — match the chips offered in the TripBuilder so that the
+// value sent to Formspree (e.g. "7 jours") matches what the customer selected
+// in the preview generator. Keeps wording crisp on the Google Sheet.
+const DURATIONS = ['5 jours', '7 jours', '10 jours', '14 jours'];
 
 const BUDGETS = [
   'Moins de 1 500 €',
@@ -93,13 +91,18 @@ export default function PremiumForm({ itinerary, originalPrompt = '' }) {
       idPrefix === 'japan' ? 'japan' :
       idPrefix === 'combined' ? 'both' : '';
 
-    // Duration comes from the itinerary itself (single source of truth)
+    // Duration comes from the itinerary itself (single source of truth).
+    // We snap to the nearest exact chip (5 / 7 / 10 / 14 jours) so what's
+    // sent to Formspree matches exactly what the user picked.
     const dayCount = itinerary.durationDays || itinerary.days?.length || 0;
-    const durationFromDays =
-      dayCount < 7 ? DURATIONS[0]
-      : dayCount <= 10 ? DURATIONS[1]
-      : dayCount <= 14 ? DURATIONS[2]
-      : DURATIONS[3];
+    const exactLabel = `${dayCount} jours`;
+    const durationFromDays = DURATIONS.includes(exactLabel)
+      ? exactLabel
+      : DURATIONS.reduce((closest, label) => {
+          const n = parseInt(label, 10);
+          const closestN = parseInt(closest, 10);
+          return Math.abs(n - dayCount) < Math.abs(closestN - dayCount) ? label : closest;
+        }, DURATIONS[1]);
 
     setForm((prev) => ({
       ...prev,

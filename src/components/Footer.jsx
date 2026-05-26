@@ -23,11 +23,6 @@ export default function Footer() {
               Des itinéraires sur-mesure pour la Corée du Sud et le Japon,
               construits par IA, pensés pour les vrais voyageurs.
             </p>
-            <div className="mt-5 flex items-center gap-3">
-              <Social href="#" label="Instagram" />
-              <Social href="#" label="TikTok" />
-              <Social href="#" label="YouTube" />
-            </div>
           </div>
 
           <FooterCol
@@ -121,14 +116,3 @@ function FooterCol({ title, links }) {
   );
 }
 
-function Social({ href, label }) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      className="grid h-9 w-9 place-items-center rounded-full border border-navy/15 bg-white/80 text-navy/70 transition-colors hover:border-navy/30 hover:text-navy"
-    >
-      <span className="text-[10px] font-semibold tracking-wider">{label.slice(0, 2).toUpperCase()}</span>
-    </a>
-  );
-}

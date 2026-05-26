@@ -85,9 +85,9 @@ function Landing() {
             </div>
           </div>
 
+          <HowItWorks />
           <Destinations />
           <TwoWays />
-          <HowItWorks />
           <Pricing />
           <FAQ />
         </main>

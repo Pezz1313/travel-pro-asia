@@ -89,33 +89,33 @@ function Result({ itinerary }) {
         </div>
       </div>
 
-      {/* Day by day */}
+      {/* Day by day — only J1 & J2 are fully revealed in the free preview */}
       <div className="reveal reveal-delay-1">
         <SectionTitle eyebrow="Programme" title="Jour par jour" />
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {itinerary.days.map((d) => (
-            <article
-              key={d.day}
-              className="card card-hover p-6"
-            >
-              <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-navy text-xs font-semibold text-ivory">
-                  J{d.day}
-                </span>
-                <span className="pill !py-1 !text-[10px]">{d.city}</span>
-              </div>
-              <h4 className="h-serif mt-4 text-xl">{d.title}</h4>
-              <ul className="mt-3 space-y-2 text-sm text-navy/80">
-                {d.items.map((it, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-coral" />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+          {itinerary.days.slice(0, 2).map((d) => (
+            <DayCard key={d.day} day={d} />
+          ))}
+          {itinerary.days.slice(2).map((d) => (
+            <LockedDayCard key={d.day} day={d} />
           ))}
         </div>
+
+        {itinerary.days.length > 2 && (
+          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-coral/25 bg-gradient-to-r from-coral/8 via-sakura/10 to-transparent px-5 py-4 sm:px-6 sm:py-5">
+            <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-coral/15 text-coral">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.7" fill="none" />
+              </svg>
+            </span>
+            <p className="text-sm leading-relaxed text-navy/85 sm:text-base">
+              <strong className="font-semibold text-coral">Version complète :</strong>{' '}
+              la version complète détaillée jour par jour sera livrée en PDF après
+              validation de la demande et du paiement.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Transport + Food */}
@@ -191,11 +191,55 @@ function Result({ itinerary }) {
       <Ornament className="pt-6 opacity-70" />
 
       <p className="mx-auto max-w-2xl text-center text-xs text-muted">
-        Cet aperçu vous donne un premier fil conducteur pour votre voyage. La version complète,
-        détaillée et personnalisée, vous est envoyée en PDF après validation et paiement.
         Les horaires, prix et disponibilités peuvent évoluer — vérifiez avant toute réservation.
       </p>
     </div>
+  );
+}
+
+function DayCard({ day }) {
+  return (
+    <article className="card card-hover p-6">
+      <div className="flex items-center justify-between">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-navy text-xs font-semibold text-ivory">
+          J{day.day}
+        </span>
+        <span className="pill !py-1 !text-[10px]">{day.city}</span>
+      </div>
+      <h4 className="h-serif mt-4 text-xl">{day.title}</h4>
+      <ul className="mt-3 space-y-2 text-sm text-navy/80">
+        {day.items.map((it, i) => (
+          <li key={i} className="flex gap-2">
+            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-coral" />
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function LockedDayCard({ day }) {
+  return (
+    <article className="relative overflow-hidden rounded-3xl border border-navy/10 bg-ivory/55 p-6 transition-all hover:border-coral/30 hover:bg-ivory/75">
+      <div className="flex items-center justify-between">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-navy/15 text-xs font-semibold text-navy/55">
+          J{day.day}
+        </span>
+        <span className="pill !py-1 !text-[10px] !text-muted">{day.city}</span>
+      </div>
+      <h4 className="h-serif mt-4 text-xl text-navy/65">{day.title}</h4>
+
+      <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-coral/25 bg-coral/5 px-3 py-2.5">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 text-coral" aria-hidden="true">
+          <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.7" fill="none" />
+        </svg>
+        <span className="text-xs font-medium text-coral">
+          Inclus dans le PDF complet
+        </span>
+      </div>
+    </article>
   );
 }
 
