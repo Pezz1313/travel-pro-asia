@@ -35,8 +35,9 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="section scroll-mt-24">
-      <div className="container-x">
+    <section id="faq" className="section relative scroll-mt-24">
+      <div className="pointer-events-none absolute inset-0 bg-cream/45" aria-hidden="true" />
+      <div className="container-x relative">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
           <div>
             <span className="label-muted">FAQ</span>

@@ -10,36 +10,49 @@ export default function HeroVisual({ className = '' }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
+        {/* Sky: cool mauve at top → warm ivory at bottom — more atmospheric */}
         <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#FAF7F2" />
-          <stop offset="60%" stopColor="#F4EFE6" />
+          <stop offset="0%" stopColor="#C8B0CC" />
+          <stop offset="35%" stopColor="#E4D0E8" />
+          <stop offset="70%" stopColor="#F0E6F0" />
           <stop offset="100%" stopColor="#FCE9EE" />
         </linearGradient>
         <linearGradient id="mountFar" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#1E2A52" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#1E2A52" stopOpacity="0.85" />
+          <stop offset="0%" stopColor="#1E2A52" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#1E2A52" stopOpacity="0.95" />
         </linearGradient>
         <linearGradient id="mountNear" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="#0F1B3D" />
           <stop offset="100%" stopColor="#060C1F" />
         </linearGradient>
+        {/* Sun: warmer, more visible glow */}
         <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#D9594C" stopOpacity="0.45" />
-          <stop offset="60%" stopColor="#D9594C" stopOpacity="0.12" />
+          <stop offset="0%" stopColor="#D9594C" stopOpacity="0.75" />
+          <stop offset="50%" stopColor="#D9594C" stopOpacity="0.25" />
           <stop offset="100%" stopColor="#D9594C" stopOpacity="0" />
+        </radialGradient>
+        {/* Atmospheric haze layer */}
+        <radialGradient id="haze" cx="0.5" cy="0.7" r="0.7">
+          <stop offset="0%" stopColor="#F2C6D1" stopOpacity="0.30" />
+          <stop offset="100%" stopColor="#F2C6D1" stopOpacity="0" />
         </radialGradient>
       </defs>
 
       {/* Sky wash */}
       <rect width="600" height="600" rx="32" fill="url(#sky)" />
 
+      {/* Atmospheric haze overlay */}
+      <rect width="600" height="600" rx="32" fill="url(#haze)" />
+
       {/* Outer faint frame */}
       <rect x="0.5" y="0.5" width="599" height="599" rx="32" fill="none" stroke="#0F1B3D" strokeOpacity="0.08" />
 
-      {/* Sun aura */}
-      <circle cx="430" cy="190" r="160" fill="url(#sun)" />
-      {/* Sun disc */}
-      <circle cx="430" cy="190" r="58" fill="#D9594C" opacity="0.85" />
+      {/* Sun aura — bigger, warmer */}
+      <circle cx="430" cy="175" r="190" fill="url(#sun)" />
+      {/* Sun disc — slightly larger */}
+      <circle cx="430" cy="175" r="66" fill="#D9594C" opacity="0.92" />
+      {/* Sun inner highlight */}
+      <circle cx="418" cy="163" r="20" fill="#F2C6D1" opacity="0.35" />
 
       {/* Distant clouds (woodblock style) */}
       <g opacity="0.5" fill="#FAF7F2">

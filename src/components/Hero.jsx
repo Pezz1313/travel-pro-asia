@@ -4,7 +4,20 @@ import HeroVisual from './HeroVisual.jsx';
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-28 sm:pt-36 lg:pt-40">
-      <div className="absolute inset-0 bg-bojagi opacity-50" aria-hidden="true" />
+      {/* Bojagi grid overlay */}
+      <div className="absolute inset-0 bg-bojagi opacity-65" aria-hidden="true" />
+      {/* Radial glow top-left — sakura atmosphere */}
+      <div
+        className="pointer-events-none absolute -left-40 -top-32 h-[600px] w-[600px] rounded-full opacity-40"
+        style={{ background: 'radial-gradient(circle, rgba(229,135,157,0.35) 0%, transparent 65%)' }}
+        aria-hidden="true"
+      />
+      {/* Radial glow top-right — gold warmth */}
+      <div
+        className="pointer-events-none absolute -right-40 top-0 h-[500px] w-[500px] rounded-full opacity-30"
+        style={{ background: 'radial-gradient(circle, rgba(184,148,86,0.28) 0%, transparent 65%)' }}
+        aria-hidden="true"
+      />
       <FloatingSakura />
 
       <div className="container-x relative grid items-center gap-12 pb-16 sm:pb-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pb-28">

@@ -11,9 +11,10 @@
   body {
     @apply bg-ivory text-navy font-sans;
     background-image:
-      radial-gradient(at 6% 8%, rgba(242, 198, 209, 0.18) 0%, transparent 38%),
-      radial-gradient(at 94% 16%, rgba(184, 148, 86, 0.10) 0%, transparent 45%),
-      radial-gradient(at 50% 96%, rgba(15, 27, 61, 0.04) 0%, transparent 55%);
+      radial-gradient(at 5% 6%, rgba(229, 135, 157, 0.22) 0%, transparent 42%),
+      radial-gradient(at 96% 10%, rgba(184, 148, 86, 0.16) 0%, transparent 48%),
+      radial-gradient(at 50% 100%, rgba(15, 27, 61, 0.06) 0%, transparent 58%),
+      radial-gradient(at 80% 60%, rgba(217, 89, 76, 0.06) 0%, transparent 40%);
     background-attachment: fixed;
   }
   ::selection {

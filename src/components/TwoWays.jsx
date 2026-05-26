@@ -10,7 +10,7 @@ export default function TwoWays() {
             Deux pays, deux univers.
           </h2>
           <p className="mt-4 text-base text-muted">
-            Choisissez votre style — ou les deux. Nos itinéraires s’adaptent à votre rythme, vos passions et votre budget.
+            Choisissez votre style — ou les deux. Nos itinéraires s&apos;adaptent à votre rythme, vos passions et votre budget.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function TwoWays() {
           <WayCard
             country="🇯🇵 Japon"
             title="Urbain &amp; culturel"
-            description="Tokyo électrique, Kyoto sereine. Du teamLab aux temples millénaires, le Japon offre l’un des contrastes les plus saisissants du monde."
+            description="Tokyo électrique, Kyoto sereine. Du teamLab aux temples millénaires, le Japon offre l&apos;un des contrastes les plus saisissants du monde."
             bullets={[
               'Tokyo : design, anime, gastronomie',
               'Kyoto : temples, bambouseraies, geishas',
@@ -52,11 +52,27 @@ export default function TwoWays() {
 function WayCard({ country, title, description, bullets, accent, visual }) {
   const halo =
     accent === 'sakura'
-      ? 'from-sakura/35 via-transparent to-gold/15'
-      : 'from-coral/20 via-transparent to-gold/15';
+      ? 'from-sakura/40 via-transparent to-gold/15'
+      : 'from-coral/25 via-transparent to-gold/15';
+
+  // Accent color for top border and wash: sakura-deep vs coral
+  const accentHex = accent === 'sakura' ? '#E5879D' : '#D9594C';
+
   return (
-    <article className="relative overflow-hidden rounded-[2rem] border border-navy/10 bg-white/90 p-8 shadow-card backdrop-blur sm:p-10">
-      <div className={`pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gradient-to-br ${halo} blur-3xl`} />
+    <article
+      className="relative overflow-hidden rounded-[2rem] border border-navy/10 bg-white/90 p-8 shadow-card backdrop-blur sm:p-10"
+      style={{ borderTop: '3px solid ' + accentHex }}
+    >
+      {/* Radial halo top-right */}
+      <div className={'pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gradient-to-br ' + halo + ' blur-3xl'} />
+
+      {/* Subtle gradient wash from the accent color at top */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 rounded-t-[2rem]"
+        style={{ background: 'linear-gradient(180deg, ' + accentHex + '1A 0%, transparent 100%)' }}
+        aria-hidden="true"
+      />
+
       <div className="relative grid gap-6 sm:grid-cols-[1fr_120px]">
         <div>
           <span className="pill">{country}</span>
@@ -65,14 +81,14 @@ function WayCard({ country, title, description, bullets, accent, visual }) {
           <ul className="mt-5 space-y-2 text-sm text-navy/80">
             {bullets.map((b) => (
               <li key={b} className="flex gap-2">
-                <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${accent === 'sakura' ? 'bg-sakura-deep' : 'bg-coral'}`} />
+                <span className={'mt-1.5 h-1 w-1 shrink-0 rounded-full ' + (accent === 'sakura' ? 'bg-sakura-deep' : 'bg-coral')} />
                 <span>{b}</span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="hidden items-end justify-end opacity-90 sm:flex">
-          <div className="opacity-80">{visual}</div>
+        <div className="hidden items-end justify-end sm:flex">
+          <div className="opacity-90">{visual}</div>
         </div>
       </div>
     </article>

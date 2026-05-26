@@ -37,7 +37,10 @@ const STEPS = [
 export default function HowItWorks() {
   return (
     <section id="how" className="section relative scroll-mt-24">
-      <div className="container-x">
+      {/* Full-width alternating cream background */}
+      <div className="pointer-events-none absolute inset-0 bg-cream/50" aria-hidden="true" />
+
+      <div className="container-x relative">
         <div className="mx-auto max-w-3xl text-center">
           <span className="label-muted">Comment ça marche</span>
           <h2 className="h-serif mt-3 text-3xl sm:text-5xl">
@@ -48,22 +51,47 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {STEPS.map((s) => (
-            <article key={s.n} className="card card-hover relative overflow-hidden p-7">
-              <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-sakura/15 blur-2xl" aria-hidden="true" />
-              <div className="relative">
-                <div className="flex items-center justify-between">
-                  <span className="text-3xl font-serif text-navy/15">{s.n}</span>
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-navy text-ivory">
-                    {s.icon}
-                  </span>
+        {/* Step cards with a subtle connector on desktop */}
+        <div className="relative mt-14">
+          {/* Connector line between step icons — desktop only */}
+          <div
+            aria-hidden="true"
+            className="absolute hidden h-px md:block"
+            style={{
+              top: '52px',
+              left: 'calc(100% / 3 / 2)',
+              right: 'calc(100% / 3 / 2)',
+              background: 'linear-gradient(90deg, transparent, rgba(15,27,61,0.18) 15%, rgba(15,27,61,0.18) 85%, transparent)',
+            }}
+          />
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {STEPS.map((s) => (
+              <article key={s.n} className="card card-hover relative overflow-hidden p-7">
+                {/* Large decorative watermark number */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-2 -bottom-4 select-none font-serif font-bold leading-none text-navy/[0.045]"
+                  style={{ fontSize: '7rem' }}
+                >
+                  {s.n}
                 </div>
-                <h3 className="h-serif mt-5 text-xl">{s.title}</h3>
-                <p className="mt-2 text-sm text-navy/75">{s.text}</p>
-              </div>
-            </article>
-          ))}
+
+                <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-sakura/20 blur-2xl" aria-hidden="true" />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="font-serif text-4xl font-medium text-navy/10">{s.n}</span>
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-navy text-ivory shadow-soft">
+                      {s.icon}
+                    </span>
+                  </div>
+                  <h3 className="h-serif mt-5 text-xl">{s.title}</h3>
+                  <p className="mt-2 text-sm text-navy/75">{s.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

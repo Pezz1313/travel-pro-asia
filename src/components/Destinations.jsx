@@ -9,6 +9,8 @@ const DESTINATIONS = [
     vibe: ['Bukchon Hanok', 'Seongsu', 'Han River', 'K-pop'],
     color: 'sakura',
     visual: 'seoul',
+    // Deep rose → navy: evokes palais Joseon + néons de Hongdae
+    bg: 'linear-gradient(150deg, #9B2D5A 0%, #3D1230 45%, #0F1B3D 100%)',
   },
   {
     name: 'Busan',
@@ -18,6 +20,8 @@ const DESTINATIONS = [
     vibe: ['Gamcheon', 'Haeundae', 'Jagalchi', 'Yonggungsa'],
     color: 'coral',
     visual: 'busan',
+    // Amber-coral → navy: coucher de soleil sur Haeundae Beach
+    bg: 'linear-gradient(150deg, #C44B1A 0%, #6B1F0A 50%, #0F1B3D 100%)',
   },
   {
     name: 'Tokyo',
@@ -27,6 +31,8 @@ const DESTINATIONS = [
     vibe: ['Shibuya', 'Asakusa', 'teamLab', 'Akihabara'],
     color: 'coral',
     visual: 'tokyo',
+    // Indigo profond → navy-dark: nuit électrique de Shibuya
+    bg: 'linear-gradient(150deg, #1A1F6B 0%, #0D1250 55%, #060C1F 100%)',
   },
   {
     name: 'Kyoto',
@@ -36,6 +42,8 @@ const DESTINATIONS = [
     vibe: ['Fushimi Inari', 'Gion', 'Arashiyama', 'Kinkaku-ji'],
     color: 'sakura',
     visual: 'kyoto',
+    // Cramoisi torii → navy: rouge Fushimi Inari au crépuscule
+    bg: 'linear-gradient(150deg, #8B2010 0%, #3D0E06 55%, #0F1B3D 100%)',
   },
 ];
 
@@ -64,16 +72,19 @@ export default function Destinations() {
   );
 }
 
-function DestinationCard({ name, country, countryLabel, tagline, vibe, color, visual }) {
+function DestinationCard({ name, country, countryLabel, tagline, vibe, color, visual, bg }) {
   const accent =
     color === 'sakura'
-      ? { halo: 'from-sakura/40 to-transparent', dot: 'bg-sakura-deep', ring: 'border-sakura-deep/30' }
-      : { halo: 'from-coral/30 to-transparent', dot: 'bg-coral', ring: 'border-coral/30' };
+      ? { halo: 'from-white/10 to-transparent', dot: 'bg-sakura-deep', ring: 'border-sakura-deep/30' }
+      : { halo: 'from-white/8 to-transparent', dot: 'bg-coral', ring: 'border-coral/30' };
 
   return (
     <article className="card card-hover group relative overflow-hidden p-0">
-      <div className="relative h-44 overflow-hidden rounded-t-3xl bg-gradient-to-br from-navy via-navy-soft to-navy-dark">
-        <div className={`absolute inset-0 bg-gradient-to-br ${accent.halo} opacity-70`} />
+      <div
+        className="relative h-48 overflow-hidden rounded-t-3xl"
+        style={{ background: bg }}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-t ${accent.halo}`} />
         <CityIllustration variant={visual} />
         <span className="absolute left-4 top-4 pill !bg-white/85">
           <span aria-hidden>{country}</span>
