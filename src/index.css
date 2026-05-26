@@ -31,28 +31,56 @@
     @apply inline-flex items-center gap-2 rounded-full border border-navy/10 bg-white/70 px-4 py-1.5 text-xs font-medium tracking-wide text-navy backdrop-blur;
   }
 
+  /* Primary CTA — targeted transition, press feedback */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold tracking-wide text-ivory shadow-card transition-all hover:bg-navy-dark hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold tracking-wide text-ivory shadow-card;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease, background-color 120ms ease;
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
   }
 
+  /* Ghost button */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white/60 px-6 py-3 text-sm font-medium text-navy backdrop-blur transition-all hover:bg-white hover:border-navy/30;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white/60 px-6 py-3 text-sm font-medium text-navy backdrop-blur;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms ease, border-color 120ms ease;
+  }
+  .btn-ghost:active {
+    transform: scale(0.97);
   }
 
+  /* Chip / pill selector */
   .btn-chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-white/80 px-3.5 py-1.5 text-xs font-medium text-navy/80 transition-all hover:border-navy/30 hover:bg-white hover:text-navy;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-white/80 px-3.5 py-1.5 text-xs font-medium text-navy/80;
+    transition: transform 100ms ease-out, background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+  }
+  .btn-chip:active {
+    transform: scale(0.97);
+  }
+
+  /* Payment button — gold border signals the secure final purchase step */
+  .btn-payhip {
+    @apply inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-7 py-4 text-base font-semibold tracking-wide text-ivory shadow-card;
+    border: 1.5px solid rgba(184, 148, 86, 0.35);
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease, background-color 120ms ease, border-color 150ms ease;
+  }
+  .btn-payhip:active {
+    transform: scale(0.97);
   }
 
   .h-serif {
     @apply font-serif font-medium tracking-tight;
   }
 
+  /* Cards — only animate the properties that actually change */
   .card {
-    @apply rounded-3xl border border-navy/10 bg-white/85 backdrop-blur-sm transition-all;
+    @apply rounded-3xl border border-navy/10 bg-white/85 backdrop-blur-sm;
+    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease, border-color 150ms ease;
   }
 
+  /* card-hover effects live in the @media guard below — no false positives on touch */
   .card-hover {
-    @apply hover:-translate-y-1 hover:shadow-card hover:border-navy/20;
+    /* intentionally empty */
   }
 
   .label-muted {
@@ -66,6 +94,38 @@
   .divider-asia {
     background: linear-gradient(90deg, transparent, rgba(15, 27, 61, 0.18), transparent);
     height: 1px;
+  }
+}
+
+/* Hover effects gated behind pointer:fine — prevents stuck hover states on touch */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: #060C1F;
+    box-shadow: 0 24px 60px -20px rgba(15, 27, 61, 0.18);
+    transform: translateY(-2px);
+  }
+  .btn-ghost:hover {
+    background-color: #ffffff;
+    border-color: rgba(15, 27, 61, 0.3);
+  }
+  .btn-chip:hover {
+    border-color: rgba(15, 27, 61, 0.3);
+    background-color: #ffffff;
+    color: #0F1B3D;
+  }
+  .btn-payhip:hover {
+    background-color: #060C1F;
+    box-shadow: 0 24px 60px -20px rgba(15, 27, 61, 0.18);
+    transform: translateY(-2px);
+    border-color: rgba(184, 148, 86, 0.6);
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -16px rgba(15, 27, 61, 0.12);
+    border-color: rgba(15, 27, 61, 0.2);
+  }
+  .locked-day-card:hover {
+    border-color: rgba(217, 89, 76, 0.3);
   }
 }
 
@@ -119,19 +179,44 @@
   will-change: transform, opacity;
 }
 
-/* Soft fade-in for itinerary reveal */
+/* Staggered content reveal */
 .reveal {
   opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
-.reveal-delay-1 { animation-delay: 80ms; }
-.reveal-delay-2 { animation-delay: 160ms; }
-.reveal-delay-3 { animation-delay: 240ms; }
-.reveal-delay-4 { animation-delay: 320ms; }
+.reveal-delay-1 { animation-delay: 50ms; }
+.reveal-delay-2 { animation-delay: 100ms; }
+.reveal-delay-3 { animation-delay: 150ms; }
+.reveal-delay-4 { animation-delay: 200ms; }
 
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(16px); }
+  0%   { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+/* personalNote subtle slide-in — confirms the AI listened to the user's request */
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.personal-note-reveal {
+  animation: fadeInSlide 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Loading bar that fills progressively, matched to the 1.6 s generation delay */
+@keyframes progressFill {
+  0%   { width: 3%; }
+  60%  { width: 65%; }
+  85%  { width: 82%; }
+  100% { width: 90%; }
+}
+.loading-progress-bar {
+  animation: progressFill 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Locked day card — transition only border-color */
+.locked-day-card {
+  transition: border-color 150ms ease;
 }
 
 /* ---------- Falling decorations (sakura + food) ---------- */
@@ -157,45 +242,47 @@
   filter: drop-shadow(0 2px 6px rgba(15, 27, 61, 0.05));
 }
 
-.falling-sakura {
-  opacity: 0;
-}
-
-.falling-food {
-  opacity: 0;
-  line-height: 1;
-}
+.falling-sakura { opacity: 0; }
+.falling-food   { opacity: 0; line-height: 1; }
 
 @keyframes fallDrift {
-  0%   { transform: translate3d(0, 0, 0) rotate(0deg);   opacity: 0; }
-  8%   {                                                  opacity: 0.42; }
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg);            opacity: 0; }
+  8%   {                                                            opacity: 0.42; }
   50%  { transform: translate3d(24px, 55vh, 0) rotate(180deg); }
-  92%  {                                                  opacity: 0.32; }
-  100% { transform: translate3d(-12px, 115vh, 0) rotate(360deg); opacity: 0; }
+  92%  {                                                            opacity: 0.32; }
+  100% { transform: translate3d(-12px, 115vh, 0) rotate(360deg);  opacity: 0; }
 }
 
-/* Food emojis drift a bit less and rotate less to stay readable as objects */
-.falling-food {
-  animation-name: fallDriftSoft;
-}
+.falling-food { animation-name: fallDriftSoft; }
 
 @keyframes fallDriftSoft {
-  0%   { transform: translate3d(0, 0, 0) rotate(-6deg);  opacity: 0; }
-  10%  {                                                  opacity: 0.35; }
+  0%   { transform: translate3d(0, 0, 0) rotate(-6deg);           opacity: 0; }
+  10%  {                                                            opacity: 0.35; }
   50%  { transform: translate3d(14px, 55vh, 0) rotate(6deg); }
-  90%  {                                                  opacity: 0.28; }
-  100% { transform: translate3d(-8px, 115vh, 0) rotate(-4deg); opacity: 0; }
+  90%  {                                                            opacity: 0.28; }
+  100% { transform: translate3d(-8px, 115vh, 0) rotate(-4deg);    opacity: 0; }
 }
 
-/* On mobile, hide every other item to keep the density premium */
+/* On mobile, halve the density */
 @media (max-width: 640px) {
   .falling-item:nth-child(2n) { display: none; }
   .falling-food { font-size: 16px !important; }
 }
 
-/* Respect users who prefer reduced motion */
+/* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .falling-decorations { display: none; }
+  .reveal,
+  .personal-note-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .animate-fade-in-up,
+  .animate-fade-in {
+    animation: none !important;
+    opacity: 1;
+  }
 }
 
 /* Custom scrollbar for premium feel */

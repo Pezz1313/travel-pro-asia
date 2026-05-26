@@ -289,7 +289,7 @@ function CTACard({ onClick }) {
             onClick={onClick}
             className="btn-primary mt-5 w-full !py-4 !text-base"
           >
-            Recevoir mon itinéraire complet — 4,99 €
+            Personnaliser mon itinéraire — 4,99 €
             <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -607,12 +607,13 @@ function ConfirmationCard({ form, onReset }) {
             href={PAYHIP_CHECKOUT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary mt-5 w-full !py-4 !text-base"
+            className="btn-payhip mt-5"
           >
-            Payer mon itinéraire — 4,99 €
-            <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
-              <path d="M14 5h5v5M19 5L10 14M5 5h5M5 5v14h14v-5" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.6" fill="none" />
             </svg>
+            Finaliser le paiement — 4,99 €
           </a>
 
           <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-muted">

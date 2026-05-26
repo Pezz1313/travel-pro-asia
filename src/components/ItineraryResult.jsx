@@ -39,7 +39,7 @@ function LoadingState() {
         ))}
       </ul>
       <div className="mt-8 h-1.5 w-full overflow-hidden rounded-full bg-navy/10">
-        <div className="h-full w-1/2 animate-pulse rounded-full bg-gradient-to-r from-coral via-sakura-deep to-gold" />
+        <div className="loading-progress-bar h-full rounded-full bg-gradient-to-r from-coral via-sakura-deep to-gold" />
       </div>
     </div>
   );
@@ -72,7 +72,7 @@ function Result({ itinerary }) {
           </p>
 
           {itinerary.personalNote && (
-            <div className="mt-4 flex items-start gap-3 rounded-2xl border border-coral/25 bg-coral/5 px-4 py-3 text-sm text-navy/85">
+            <div className="personal-note-reveal mt-4 flex items-start gap-3 rounded-2xl border border-coral/25 bg-coral/5 px-4 py-3 text-sm text-navy/85">
               <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-coral animate-pulse-soft" />
               <span>
                 <strong className="font-semibold text-coral">D’après votre demande :</strong>{' '}
@@ -81,10 +81,10 @@ function Result({ itinerary }) {
             </div>
           )}
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
             <Stat label="Villes" value={[...new Set(itinerary.days.flatMap((d) => d.city.split(' → ')))].length} />
             <Stat label="Jours" value={itinerary.days.length} />
-            <Stat label="Budget estimé" value={`${itinerary.budget.total} ${itinerary.budget.currency}`} />
+            <Stat label="Budget estimé" value={`${itinerary.budget.total} ${itinerary.budget.currency}`} className="col-span-2 sm:col-span-1" />
           </div>
         </div>
       </div>
@@ -221,21 +221,21 @@ function DayCard({ day }) {
 
 function LockedDayCard({ day }) {
   return (
-    <article className="relative overflow-hidden rounded-3xl border border-navy/10 bg-ivory/55 p-6 transition-all hover:border-coral/30 hover:bg-ivory/75">
+    <article className="locked-day-card relative overflow-hidden rounded-3xl border border-navy/10 bg-ivory/70 p-6">
       <div className="flex items-center justify-between">
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-navy/15 text-xs font-semibold text-navy/55">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-navy/15 text-xs font-semibold text-navy/60">
           J{day.day}
         </span>
         <span className="pill !py-1 !text-[10px] !text-muted">{day.city}</span>
       </div>
-      <h4 className="h-serif mt-4 text-xl text-navy/65">{day.title}</h4>
+      <h4 className="h-serif mt-4 text-xl text-navy/75">{day.title}</h4>
 
       <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-coral/25 bg-coral/5 px-3 py-2.5">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 text-coral" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-coral" aria-hidden="true">
           <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.7" fill="none" />
           <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.7" fill="none" />
         </svg>
-        <span className="text-xs font-medium text-coral">
+        <span className="text-sm font-semibold text-coral">
           Inclus dans le PDF complet
         </span>
       </div>
@@ -243,9 +243,9 @@ function LockedDayCard({ day }) {
   );
 }
 
-function Stat({ label, value }) {
+function Stat({ label, value, className = '' }) {
   return (
-    <div className="rounded-2xl border border-navy/10 bg-ivory/60 px-4 py-3">
+    <div className={`rounded-2xl border border-navy/10 bg-ivory/60 px-4 py-3 ${className}`}>
       <div className="label-muted">{label}</div>
       <div className="mt-1 text-xl font-semibold text-navy">{value}</div>
     </div>

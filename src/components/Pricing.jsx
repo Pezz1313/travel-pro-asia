@@ -77,7 +77,7 @@ export default function Pricing() {
                 </ul>
 
                 <a href="#builder" className="btn-primary mt-8 w-full !py-4 !text-base">
-                  Recevoir mon itinéraire complet — 4,99 €
+                  Obtenir mon plan complet — 4,99 €
                   <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

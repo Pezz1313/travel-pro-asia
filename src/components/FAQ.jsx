@@ -75,9 +75,12 @@ export default function FAQ() {
                     </span>
                   </button>
                   <div
-                    className={`grid overflow-hidden transition-all ${
-                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                    }`}
+                    className={`grid overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                    style={{
+                      transition: isOpen
+                        ? 'grid-template-rows 220ms cubic-bezier(0.23,1,0.32,1), opacity 160ms ease 40ms'
+                        : 'grid-template-rows 160ms cubic-bezier(0.23,1,0.32,1), opacity 120ms ease',
+                    }}
                   >
                     <div className="min-h-0">
                       <p className="px-5 pb-5 text-sm leading-relaxed text-navy/80 sm:px-6 sm:pb-6">

@@ -42,14 +42,14 @@ export default {
         'premium': '0 24px 60px -20px rgba(15, 27, 61, 0.18)',
       },
       animation: {
-        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-        'fade-in': 'fadeIn 0.6s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.23,1,0.32,1) forwards',
+        'fade-in': 'fadeIn 0.4s cubic-bezier(0.23,1,0.32,1) forwards',
         'sakura-float': 'sakuraFloat 14s linear infinite',
         'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
       },
       keyframes: {
         fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         fadeIn: {

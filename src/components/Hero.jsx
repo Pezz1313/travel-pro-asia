@@ -18,7 +18,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="h-serif text-[2.6rem] leading-[1.05] sm:text-5xl lg:text-[3.8rem]">
+          <h1 className="h-serif text-[2.2rem] leading-[1.08] sm:text-5xl lg:text-[3.8rem]">
             Le voyage <em className="not-italic text-coral">de vos rêves</em>
             <br />
             en Corée &amp; au Japon,
