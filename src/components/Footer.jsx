@@ -1,4 +1,5 @@
 import { Ornament } from './Decorations.jsx';
+import { RouteLink } from '../lib/router.jsx';
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="container-x py-14 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2.5">
+            <RouteLink to="/" className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-navy text-ivory">
                 <svg viewBox="0 0 24 24" className="h-5 w-5">
                   <path d="M3 17 Q 12 4 21 17" stroke="#F2C6D1" strokeWidth="1.6" fill="none" strokeLinecap="round" />
@@ -17,7 +18,7 @@ export default function Footer() {
                 <div className="h-serif text-base">Travel Pro Asia</div>
                 <div className="text-[10px] uppercase tracking-[0.22em] text-muted">Korea · Japan</div>
               </div>
-            </div>
+            </RouteLink>
             <p className="mt-4 max-w-sm text-sm text-muted">
               Des itinéraires sur-mesure pour la Corée du Sud et le Japon,
               construits par IA, pensés pour les vrais voyageurs.
@@ -32,27 +33,27 @@ export default function Footer() {
           <FooterCol
             title="Produit"
             links={[
-              ['Comment ça marche', '#how'],
-              ['Destinations', '#destinations'],
-              ['Tarifs', '#pricing'],
-              ['FAQ', '#faq'],
+              ['Comment ça marche', '/#how'],
+              ['Destinations', '/#destinations'],
+              ['Tarifs', '/#pricing'],
+              ['FAQ', '/#faq'],
             ]}
           />
           <FooterCol
             title="Pays"
             links={[
-              ['Corée du Sud', '#destinations'],
-              ['Japon', '#destinations'],
-              ['Voyages combinés', '#builder'],
-              ['Conseils locaux', '#how'],
+              ['Corée du Sud', '/#destinations'],
+              ['Japon', '/#destinations'],
+              ['Voyages combinés', '/#builder'],
+              ['Conseils locaux', '/#how'],
             ]}
           />
           <FooterCol
             title="Légal"
             links={[
-              ['Mentions légales', '#'],
-              ['Confidentialité', '#'],
-              ['CGV', '#'],
+              ['Mentions légales', '/mentions-legales', true],
+              ['Politique de confidentialité', '/politique-confidentialite', true],
+              ['CGV', '/conditions-vente', true],
             ]}
           />
         </div>
@@ -99,11 +100,20 @@ function FooterCol({ title, links }) {
     <div>
       <div className="label-muted">{title}</div>
       <ul className="mt-4 space-y-2">
-        {links.map(([label, href]) => (
+        {links.map(([label, href, useRouter]) => (
           <li key={label}>
-            <a href={href} className="text-sm text-navy/80 transition-colors hover:text-navy">
-              {label}
-            </a>
+            {useRouter ? (
+              <RouteLink
+                to={href}
+                className="text-sm text-navy/80 transition-colors hover:text-navy"
+              >
+                {label}
+              </RouteLink>
+            ) : (
+              <a href={href} className="text-sm text-navy/80 transition-colors hover:text-navy">
+                {label}
+              </a>
+            )}
           </li>
         ))}
       </ul>

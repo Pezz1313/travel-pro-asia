@@ -12,8 +12,24 @@ import FAQ from './components/FAQ.jsx';
 import Footer from './components/Footer.jsx';
 import FallingDecorations from './components/FallingDecorations.jsx';
 import { generateDemoItinerary } from './data/itineraries.js';
+import { useRoute } from './lib/router.jsx';
+import MentionsLegales from './pages/MentionsLegales.jsx';
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite.jsx';
+import ConditionsVente from './pages/ConditionsVente.jsx';
 
 export default function App() {
+  const route = useRoute();
+
+  // Tiny pathname-based router. New legal routes here.
+  if (route === '/mentions-legales') return <MentionsLegales />;
+  if (route === '/politique-confidentialite') return <PolitiqueConfidentialite />;
+  if (route === '/conditions-vente') return <ConditionsVente />;
+
+  // Default: landing page
+  return <Landing />;
+}
+
+function Landing() {
   const [itinerary, setItinerary] = useState(null);
   const [loading, setLoading] = useState(false);
   // Keep the user's original travel request around so we can include it
@@ -31,7 +47,7 @@ export default function App() {
       resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Simulate a short "AI thinking" delay for the demo.
+    // Simulate a short "AI thinking" delay before showing the preview.
     setTimeout(() => {
       const result = generateDemoItinerary(prompt, options);
       setItinerary(result);
